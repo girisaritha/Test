@@ -1,0 +1,547 @@
+package com.java.p1;
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class ConnectionFactory {
+	    static Connection connection =null;
+	    public static Connection getConnection() {
+
+	{
+	    try
+	    {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","root");
+	        return connection;
+	    }
+	    catch(Exception e)
+	    {
+	        System.out.println(e);
+	    }
+	    return connection;
+	}
+	}
+	}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package com.user;
+public class shop
+{
+int id;
+String name;
+double price;
+int quantity;
+public int getQuantity() {
+	return quantity;
+}
+public void setQuantity(int quantity) {
+	this.quantity = quantity;
+}
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
+public String getName() {
+	return name;
+}
+public void setName(String name) {
+	this.name = name;
+}
+public double getPrice() {
+	return price;
+}
+public void setPrice(double price) {
+	this.price = price;
+}
+}
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package com.user;
+public interface ShopDao
+{
+public void displayElectronics();
+public void AddElectronics(shop shop1);
+public void displayBath();
+public void AddBath(shop shop1);
+public void displayKitchen();
+public void AddKitchen(shop shop1);
+public void displayClothes();
+public void AddClothes(shop shop1);
+public void displayFinalbill();
+}
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package com.user;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+public class ShoppingService implements ShopDao
+{
+	@Override
+	public void displayElectronics()
+	{
+		try
+        {  
+            Connection con = ConnectionFactory.getConnection();
+            Statement stmt= con.createStatement();
+			ResultSet rs= stmt.executeQuery("select * from electronics");
+			System.out.println("Id\tName\tPrice");
+			while(rs.next())
+			{
+				System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getInt(3));
+			}    	
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+	}
+	@Override
+	public void displayBath()
+	{
+		try
+        {
+            Connection con = ConnectionFactory.getConnection();
+            Statement stmt= con.createStatement();
+			ResultSet rs= stmt.executeQuery("select * from bath");
+			System.out.println("Id\tName\tPrice");
+			while(rs.next())
+			{
+				System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getInt(3));
+			}      	
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+	}
+	@Override
+	public void displayKitchen()
+	{
+		try
+        { 
+            Connection con = ConnectionFactory.getConnection();
+            Statement stmt= con.createStatement();
+			ResultSet rs= stmt.executeQuery("select * from kitchen");
+			System.out.println("Id\tName\tPrice");
+			while(rs.next())
+			{
+				System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getInt(3));
+			}       	
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+	}
+	@Override
+	public void displayClothes()
+	{
+		try
+        {  
+            Connection con = ConnectionFactory.getConnection();
+            Statement stmt= con.createStatement();
+			ResultSet rs= stmt.executeQuery("select * from cloths");
+			System.out.println("Id\tName\tPrice");
+			while(rs.next())
+			{
+				System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getInt(3));
+			}     	
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+	}
+	@Override
+	public void AddElectronics(shop shop1)
+	{
+		try
+        {  
+            Connection con = ConnectionFactory.getConnection();
+            Statement stmt= con.createStatement();
+			int i = stmt.executeUpdate("insert into fbill(`name`,`quantity`,`price`) values('"+shop1.getName()+"','"+shop1.getQuantity()+"','"+shop1.getPrice()+"')");
+			if(i>0)
+			{
+				System.out.println("Data Inserted");
+			}   	
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+	}
+	@Override
+	public void AddBath(shop shop1)
+	{
+		try
+        {  
+            Connection con = ConnectionFactory.getConnection();
+            Statement stmt= con.createStatement();
+			int i = stmt.executeUpdate("insert into fbill(`name`,`quantity`,`price`) values('"+shop1.getName()+"','"+shop1.getQuantity()+"','"+shop1.getPrice()+"')");
+			if(i>0)
+			{
+				System.out.println("Data Inserted");
+			}   	
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+	}
+	@Override
+	public void AddKitchen(shop shop1)
+	{
+		try
+        {  
+            Connection con = ConnectionFactory.getConnection();
+            Statement stmt= con.createStatement();
+			int i = stmt.executeUpdate("insert into fbill(`name`,`quantity`,`price`) values('"+shop1.getName()+"','"+shop1.getQuantity()+"','"+shop1.getPrice()+"')");
+			if(i>0)
+			{
+				System.out.println("Data Inserted");
+			}   	
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+	}
+	@Override
+	public void AddClothes(shop shop1)
+	{
+		try
+        {   
+            Connection con = ConnectionFactory.getConnection();
+            Statement stmt= con.createStatement();
+			int i = stmt.executeUpdate("insert into fbill(`name`,`quantity`,`price`) values('"+shop1.getName()+"','"+shop1.getQuantity()+"','"+shop1.getPrice()+"')");
+			if(i>0)
+			{
+				System.out.println("Data Inserted");
+			}   	
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+	}
+	@Override
+	public void displayFinalbill()
+	{
+		try
+        {   
+            Connection con = ConnectionFactory.getConnection();
+            Statement stmt= con.createStatement();
+			ResultSet rs= stmt.executeQuery("select * from fbill");
+			System.out.println("Id\tName\tQuantity\tPrice");
+			while(rs.next())
+			{
+				System.out.println(rs.getInt(1)+"\t"+rs.getString(2)+"\t"+rs.getInt(3)+"\t"+rs.getInt(4));
+			}
+            	
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+	}
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+package com.user;
+import java.util.Scanner;
+
+public class Shopping 
+{
+	static shop shop1 = new shop();
+	static ShoppingService service = new ShoppingService();
+	static Scanner sc = new Scanner(System.in);
+	static double budget=100000;
+	static double fp;
+	public static void section()         
+	{
+		  Scanner s=new Scanner(System.in);
+          System.out.println("====welcome to D mart");
+          System.out.println("select one section which you want");
+          System.out.println("1 Electronics.\n2.kitchen\n3.Bath\n4.Cloths");
+          int a =s.nextInt();
+          if (a==1)
+          {
+        	  System.out.println("your enter into Electronics zone");
+        	  service.displayElectronics();
+        	  System.out.println("Enter id to select item");
+        	  int o=s.nextInt();
+        	  double tv = 17000;
+        	  double mobile = 20000;
+        	  double hs = 800;
+        	  if(o==1)
+        	  {
+        		  System.out.println("1.TV :\t"+tv);
+        		  System.out.println("enter no.of tvs you want to buy");
+        		  int b=s.nextInt();
+        		  double price = b*tv;
+        		  System.out.println("TV price :"+(price));
+        		  fp=fp+price;  
+        		  budget = budget-price;
+        		  shop1.setName("TV");
+        		  shop1.setQuantity(b);
+        		  shop1.setPrice(price);
+        		  service.AddElectronics(shop1);
+        		  System.out.println("Price Till now : \t"+fp);
+        		  System.out.println("Available price : \t"+budget);
+        		  price();
+        	  }
+        	  else if (o==2)
+        	  {
+        		  System.out.println("2.Mobile :\t"+mobile);
+        		  System.out.println("enter no.of Mobiles you want to buy");
+        		  int b=s.nextInt();
+        		  double price = b*mobile;
+        		  System.out.println("Mobile price :"+(price));
+        		  fp=fp+price;  
+        		  budget = budget-price;
+        		  shop1.setName("Mobile");
+        		  shop1.setQuantity(b);
+        		  shop1.setPrice(price);
+        		  service.AddElectronics(shop1);
+        		  System.out.println("Available price : \t"+budget);
+        		  System.out.println("Price Till now : \t"+fp);
+        		  price();
+        	  }
+        	  else if (o==3)
+        	  {
+        		  System.out.println("2.Headset :\t"+hs);
+        		  System.out.println("enter no.of Headset you want to buy");
+        		  int b=s.nextInt();
+        		  double price = b*hs;
+        		  System.out.println("TV price :"+(price));
+        		  fp=fp+price;  
+        		  budget = budget-price;
+        		  shop1.setName("Headset");
+        		  shop1.setQuantity(b);
+        		  shop1.setPrice(price);
+        		  service.AddElectronics(shop1);
+        		  System.out.println("Available price : \t"+budget);
+        		  System.out.println("Price Till now : \t"+fp);
+        		  price();
+        	  }
+        	  else
+        	  {
+        		  System.out.println("your not selected any item");
+        	  }
+        	  }
+          	else if(a==2)
+          	{
+          		System.out.println("your enter into kitchen zone");
+          		service.displayKitchen();
+          		System.out.println("Enter id to select item");
+          		double cooker=1500;
+          		double grinder=2000;
+          		double heater =350;
+          		
+          		int w=s.nextInt();
+          		if(w==1)
+          		{
+          		  System.out.println("1.cooker :\t"+cooker);
+          		  System.out.println("enter no.of cooker you want to buy");
+          		  int b=s.nextInt();
+          		  double price = b*cooker;
+          		  System.out.println("cooker price :"+(price));
+          		  fp=fp+price;
+          		budget = budget-price;
+          		shop1.setName("Cooker");
+          		shop1.setQuantity(b);
+          		shop1.setPrice(price);
+          		service.AddKitchen(shop1);
+          		System.out.println("Available price : \t"+budget);
+        		  System.out.println("Price Till now : \t"+fp);
+          		  price();
+          		}
+          		else if(w==2)
+          		{
+          			  System.out.println("2.grinder :\t"+grinder);
+            		  System.out.println("enter no.of grinder you want to buy");
+            		  int b=s.nextInt();
+            		  double price = b*grinder;
+            		  System.out.println("grinder price :"+(price));
+            		  fp=fp+price;
+            		  budget = budget-price;
+            		  shop1.setName("Grinder");
+                		shop1.setQuantity(b);
+                		shop1.setPrice(price);
+                		service.AddKitchen(shop1);
+            		  System.out.println("Available price : \t"+budget);
+            		  System.out.println("Price Till now : \t"+fp);
+            		  price();
+          		}
+          		else if(w==3)
+          		{
+          			  System.out.println("3.Heater :\t"+heater);
+            		  System.out.println("enter no.of heater you want to buy");
+            		  int b=s.nextInt();
+            		  double price = b*heater;
+            		  System.out.println("Heater price :"+(price));
+            		  fp=fp+price; 
+            		  budget = budget-price;
+            		  shop1.setName("Heater");
+                		shop1.setQuantity(b);
+                		shop1.setPrice(price);
+                		service.AddKitchen(shop1);
+            		  System.out.println("Available price : \t"+budget);
+            		  System.out.println("Price Till now : \t"+fp);
+            		  price();
+          		}
+          		else
+          		{
+          			System.out.println("your not selected any item");
+          			price();
+          		}
+          	}
+          	else if(a==3)
+          	{
+          		System.out.println("your enter into Bath zone");
+          		service.displayBath();
+          		System.out.println("Enter id to select item");
+          		double soap = 76;
+          		double shampoo = 5;
+          		double con = 60;
+          		
+          		int g=s.nextInt();
+          		if(g==1)
+          		{
+          		  System.out.println("1.soap :\t"+soap);
+          		  System.out.println("enter no.of soap you want to buy");
+          		  int b=s.nextInt();
+          		  double price = b*soap;
+          		  System.out.println("Soap price :"+(price));
+          		  fp=fp+price;  
+          		budget = budget-price;
+          		shop1.setName("Soap");
+        		shop1.setQuantity(b);
+        		shop1.setPrice(price);
+        		service.AddBath(shop1);
+          		System.out.println("Available price : \t"+budget);
+        		  System.out.println("Price Till now : \t"+fp);
+          		  price();
+          		}
+          		else if(g==2)
+          		{
+          			System.out.println("2.shampoo :\t"+shampoo);
+            		  System.out.println("enter no.of shampoo you want to buy");
+            		  int b=s.nextInt();
+            		  double price = b*shampoo;
+            		  System.out.println("Shampoo price :"+(price));
+            		  fp=fp+price;
+            		  budget = budget-price;
+            		  shop1.setName("Shampoo");
+              		shop1.setQuantity(b);
+              		shop1.setPrice(price);
+              		service.AddBath(shop1);
+            		  System.out.println("Available price : \t"+budget);
+            		  System.out.println("Price Till now : \t"+fp);
+            		  price();
+          		}
+          		else if(g==3)
+          		{
+          			  System.out.println("3.Conditioner :\t"+con);
+            		  System.out.println("enter no.of Conditioner you want to buy");
+            		  int b=s.nextInt();
+            		  double price = b*con;
+            		  System.out.println("Conditioner price :"+(price));
+            		  fp=fp+price; 
+            		  budget = budget-price;
+            		  budget = budget-price;
+            		  shop1.setName("Conditioner");
+              		shop1.setQuantity(b);
+              		shop1.setPrice(price);
+              		service.AddBath(shop1);
+            		  System.out.println("Available price : \t"+budget);
+            		  System.out.println("Price Till now : \t"+fp);
+            		  price();
+          		}
+          		else
+          		{
+          			System.out.println("your not selected any item");
+          		}
+          		}
+          	else if(a==4)
+          	{
+          		System.out.println("your enter into Clothing zone");
+          		service.displayClothes();
+          		System.out.println("Enter id to select item");
+          		double fr = 800;
+          		double cau = 1000;
+          		int y=s.nextInt();
+          		if(y==1)
+          		{
+          		System.out.println("1.Formals :\t"+fr);
+          		  System.out.println("enter no.of Formals you want to buy");
+          		  int b=s.nextInt();
+          		  double price = b*fr;
+          		  System.out.println("Formals price :"+(price));
+          		  fp=fp+price;
+          		budget = budget-price;
+          		shop1.setName("Formals");
+          		shop1.setPrice(price);
+          		shop1.setQuantity(b);
+          		service.AddClothes(shop1);
+          		System.out.println("Available price : \t"+budget);
+      		  System.out.println("Price Till now : \t"+fp);
+          		  price();
+          		}
+          		else if(y==2)
+          		{
+          			System.out.println("2.causuals :\t"+cau);
+            		  System.out.println("enter no.of causuals you want to buy");
+            		  int b=s.nextInt();
+            		  double price = b*cau;
+            		  System.out.println("causuals price :"+(price));
+            		  fp=fp+price;  
+            		  budget = budget-price;
+            		  shop1.setName("Causuals");
+                		shop1.setPrice(price);
+                		shop1.setQuantity(b);
+                		service.AddClothes(shop1);
+            		  System.out.println("Available price : \t"+budget);
+            		  System.out.println("Price Till now : \t"+fp);
+            		  price();
+          		}
+          		else
+          		{
+          			System.out.println("invalide selection");
+          		}
+          	}
+		}
+		public static void price()
+		{
+			if(budget<=0)
+			{
+				System.out.println("Insufficient Balance");
+			}
+			else 
+			{
+				meth1();
+			}
+		}
+		public static void meth1()
+		{
+			Scanner s=new Scanner(System.in);
+			System.out.println("press 1 if u continue or press any number if u want to exit");
+			int k=s.nextInt();
+			if(k==1)
+			 {
+				 section();
+			 }
+			else
+			{
+				service.displayFinalbill();
+				System.out.println("==================================");
+				System.out.println("Final price is : "+fp);
+				System.out.println("remaining budget is:"+(budget));
+				System.out.println("====Thank You Visit Again====");			
+			}
+	}
+	public static void main(String[] args)
+	{
+		Shopping s=new Shopping();
+		s.section();
+	}	
+}
